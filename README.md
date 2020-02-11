@@ -40,10 +40,10 @@ Server 4: Change HTTPS Connector Port..:8443 to :8446 <br />
 Server 4: Change Shutdown Port.........:8005 to :8008 <br />
 Server 4: Change AJP Connector Port....:8009 to :8012 <br />
 
-## In this build:
+## In this build Version 1.0 :
 * The script creates a separate folder for each apache tomcat instance and changes the ports in the server.xml. After the installation all instances are started.
+* The possibility to choose whether the apache tomcat instances should be automatically configured as a service.
 
 ## Planned in next build:
 * Select apache tomcat version to install
-* The possibility to choose whether the apache tomcat instances should be automatically configured as a service.
 * Start and Stop all instances with one command
