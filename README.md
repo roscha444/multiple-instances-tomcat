@@ -1,7 +1,7 @@
 # Install Multiple Instances of Apache Tomcat on Linux 
 A simple bash script to install 1 - 4 apache tomcat instances.
 The script creates a separate folder for each instance and changes the ports in the server.xml
-
+There is also the option of automatically configuring Apache Tomcat instances as a service.
 ## Run RunInstallation.sh
 
 1. Go to the folder where you want to install the apache tomcat instances. The script creates subfolders for each instance in this folder.
