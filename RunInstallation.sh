@@ -18,7 +18,7 @@ ServerDirectory4=apache-tomcat-4
 
 ################################
 AUTHOR="Robin Schumacher"
-VERSION="0.2"
+VERSION="1.0"
 ###############################
 
 clear
@@ -54,7 +54,7 @@ fi
 echo -n "Configure Apache Tomcat Servers as Service? [y] = yes / [n] = no ? "
 read Service
 
-if ($Service = "y" || $Service = "Y"); then
+if ($Service = y || $Service = Y || $Service = yes || $Service = Yes}]; then
 	Service=true
 	echo "Configure Tomcat Servers as Service!"
 else
