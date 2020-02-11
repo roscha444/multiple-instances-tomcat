@@ -25,8 +25,8 @@ clear
 echo "##########################################################"
 echo ""
 echo "Install Multiple Instances of Apache Tomcat on Linux"
-echo "VERSION" $VERSION
-echo "Script by" $AUTHOR
+echo -n "VERSION" $VERSION; echo -n " Script by" $AUTHOR
+echo ""
 echo ""
 echo "##########################################################"
 
@@ -36,6 +36,8 @@ echo ""
 
 echo "##########################################################"
 
+echo ""
+echo "Before you can use this script you’ll have to install the Java Development Kit (JDK) or  Java Standard Edition Runtime Environment (JRE)!!!"
 echo ""
 echo "MAX INSTALLATIONS 4"
 echo -n "Number of tomcat installations: "
@@ -50,11 +52,11 @@ if !(($AMOUNT > 0 && $AMOUNT < 5)); then
 	echo "##########################################################"
 	exit 1
 fi
-
+echo ""
 echo -n "Configure Apache Tomcat Servers as Service? [y] = yes / [n] = no ? "
 read Service
 
-if ($Service = y || $Service = Y || $Service = yes || $Service = Yes}]; then
+if [[ $Service = 'y' ]] || [[  $Service = 'Y' ]]; then
 	Service=true
 	echo "Configure Tomcat Servers as Service!"
 else
@@ -124,7 +126,6 @@ echo "Server 1: HTTP Port...........*:8080"
 echo "Server 1: HTTPS Port..........*:8443"
 echo "Server 1: Shutdown Port.......*:8005"
 echo "Server 1: AJP Connector Port..*:8009"
-echo ""
 
 if (($AMOUNT > 1)); then
 cd $ServerDirectory2
@@ -133,6 +134,7 @@ sed -i s/8080/8081/ server.xml
 sed -i s/8443/8444/ server.xml 
 sed -i s/8005/8006/ server.xml
 sed -i s/8009/8010/ server.xml
+echo ""
 echo "Server 2: Change HTTP Connector Port...*:8080 to *:8081"
 echo "Server 2: Change HTTPS Connector Port..*:8443 to *:8444"
 echo "Server 2: Change Shutdown Port.........*:8005 to *:8006"
@@ -185,18 +187,18 @@ if [ $Service = false ]; then
 echo ""
 $ServerDirectory1/bin/startup.sh
 
-echo ""
 if (($AMOUNT > 1)); then
+echo ""
 $ServerDirectory2/bin/startup.sh
 fi
 
-echo ""
 if (($AMOUNT > 2)); then
+echo ""
 $ServerDirectory3/bin/startup.sh
 fi
 
-echo ""
 if (($AMOUNT > 3)); then
+echo ""
 $ServerDirectory4/bin/startup.sh
 fi
 echo ""
@@ -223,7 +225,7 @@ WorkingDirectory=$d/$ServerDirectory1
 Environment="JAVA_HOME=$JavaPath"
 Environment="JAVA_OPTS=-Djava.security.egd=file:///dev/urandom"
 
-Environment="CATALINA_PID=$d/$ServerDirectory1/run/tomcat.pid"
+Environment="CATALINA_PID=$d/$ServerDirectory1/temp/tomcat.pid"
 Environment="CATALINA_BASE=$d/$ServerDirectory1"
 Environment="CATALINA_HOME=$d/$ServerDirectory1"
 Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
@@ -256,7 +258,7 @@ WorkingDirectory=$d/$ServerDirectory2/
 Environment="JAVA_HOME=$JavaPath"
 Environment="JAVA_OPTS=-Djava.security.egd=file:///dev/urandom"
 
-Environment="CATALINA_PID=$d/$ServerDirectory2/run/tomcat.pid"
+Environment="CATALINA_PID=$d/$ServerDirectory2/temp/tomcat.pid"
 Environment="CATALINA_BASE=$d/$ServerDirectory2"
 Environment="CATALINA_HOME=$d/$ServerDirectory2"
 Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
@@ -294,7 +296,7 @@ WorkingDirectory=$d/$ServerDirectory3
 Environment="JAVA_HOME=$JavaPath"
 Environment="JAVA_OPTS=-Djava.security.egd=file:///dev/urandom"
 
-Environment="CATALINA_PID=$d/$ServerDirectory3/run/tomcat.pid"
+Environment="CATALINA_PID=$d/$ServerDirectory3/temp/tomcat.pid"
 Environment="CATALINA_BASE=$d/$ServerDirectory3"
 Environment="CATALINA_HOME=$d/$ServerDirectory3"
 Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
@@ -331,7 +333,7 @@ WorkingDirectory=$d/$ServerDirectory4
 Environment="JAVA_HOME=$JavaPath"
 Environment="JAVA_OPTS=-Djava.security.egd=file:///dev/urandom"
 
-Environment="CATALINA_PID=$d/$ServerDirectory4/run/tomcat.pid"
+Environment="CATALINA_PID=$d/$ServerDirectory4/temp/tomcat.pid"
 Environment="CATALINA_BASE=$d/$ServerDirectory4"
 Environment="CATALINA_HOME=$d/$ServerDirectory4"
 Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
@@ -346,7 +348,7 @@ ExecStop=$d/$ServerDirectory4/bin/shutdown.sh
 WantedBy=multi-user.target
 END
 systemctl daemon-reload
-systemctl enable tomcat-4.service
+systemctl enable tomcat-4
 sudo service tomcat-4 start
 fi
 
@@ -354,18 +356,25 @@ systemctl daemon-reload
 systemctl enable tomcat-1
 sudo service tomcat-1 start
 
-echo "Server 1: "; systemctl show -p SubState --value tomcat-1
+echo ""
+echo -n "Server 1: "; echo -n $(systemctl show -p SubState --value tomcat-1)
 
 if (($AMOUNT > 1)); then 
-echo "Server 2: "; systemctl show -p SubState --value tomcat-2
+echo ""
+echo -n "Server 2: "; echo -n $(systemctl show -p SubState --value tomcat-2)
 fi
 
 if (($AMOUNT > 2)); then 
-echo "Server 3: "; systemctl show -p SubState --value tomcat-3
+echo ""
+echo -n "Server 3: "; echo -n $(systemctl show -p SubState --value tomcat-3)
 fi
 
 if (($AMOUNT > 3)); then 
-echo "Server 4: "; systemctl show -p SubState --value tomcat-4
+echo ""
+echo -n "Server 4: "; echo -n $(systemctl show -p SubState --value tomcat-4)
 fi
 
+echo ""
+echo ""
+echo "##########################################################"
 fi
