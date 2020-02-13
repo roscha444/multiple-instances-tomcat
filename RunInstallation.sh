@@ -73,12 +73,14 @@ echo "##########################################################"
 echo ""
 mkdir $tmp
 cd $tmp
-wget https://www-us.apache.org/dist/tomcat/tomcat-9/v9.0.30/bin/apache-tomcat-9.0.30.tar.gz
+
+TOMCAT_VER=`curl --silent http://mirror.vorboss.net/apache/tomcat/tomcat-8/ | grep v8 | awk '{split($5,c,">v") ; split(c[2],d,"/") ; print d[1]}'`
+wget -N http://mirror.vorboss.net/apache/tomcat/tomcat-8/v${TOMCAT_VER}/bin/apache-tomcat-${TOMCAT_VER}.tar.gz
 
 {
-  tar -zxvf apache-tomcat-9.0.30.tar.gz -C ./
+  tar -zxvf apache-tomcat-$TOMCAT_VER.tar.gz -C ./
 } &> /dev/null
-echo "extract apache-tomcat-9.0.30.tar.gz"
+echo "extract apache-tomcat.tar.gz"
 cd ..
 echo ""
 
@@ -91,24 +93,24 @@ echo "##########################################################"
 echo""
 echo "Copy apache tomcat to Server 1!"
 mkdir $ServerDirectory1
-cp -ar $tmp/apache-tomcat-9.0.30/* $ServerDirectory1
+cp -ar $tmp/apache-tomcat-$TOMCAT_VER/* $ServerDirectory1
 
 if (($AMOUNT > 1)); then
 echo "Copy apache tomcat to Server 2!"
 mkdir $ServerDirectory2
-cp -ar $tmp/apache-tomcat-9.0.30/* $ServerDirectory2
+cp -ar $tmp/apache-tomcat-$TOMCAT_VER/* $ServerDirectory2
 fi
 
 if (($AMOUNT > 2)); then
 echo "Copy apache tomcat to Server 3!"
 mkdir $ServerDirectory3
-cp -ar $tmp/apache-tomcat-9.0.30/* $ServerDirectory3
+cp -ar $tmp/apache-tomcat-$TOMCAT_VER/* $ServerDirectory3
 fi
 
 if (($AMOUNT > 3)); then
 echo "Copy apache tomcat to Server 4!"
 mkdir $ServerDirectory4
-cp -ar $tmp/apache-tomcat-9.0.30/* $ServerDirectory4
+cp -ar $tmp/apache-tomcat-$TOMCAT_VER/* $ServerDirectory4
 fi
 rm -r $tmp
 echo ""
