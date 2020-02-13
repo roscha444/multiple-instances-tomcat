@@ -357,21 +357,21 @@ systemctl enable tomcat-1
 sudo service tomcat-1 start
 
 echo ""
-echo -n "Server 1: "; echo -n $(systemctl show -p SubState --value tomcat-1)
+echo -n "service tomcat-1 status : "; echo -n $(systemctl show -p SubState --value tomcat-1)
 
 if (($AMOUNT > 1)); then 
 echo ""
-echo -n "Server 2: "; echo -n $(systemctl show -p SubState --value tomcat-2)
+echo -n "service tomcat-2 status : "; echo -n $(systemctl show -p SubState --value tomcat-2)
 fi
 
 if (($AMOUNT > 2)); then 
 echo ""
-echo -n "Server 3: "; echo -n $(systemctl show -p SubState --value tomcat-3)
+echo -n "service tomcat-3 status : "; echo -n $(systemctl show -p SubState --value tomcat-3)
 fi
 
 if (($AMOUNT > 3)); then 
 echo ""
-echo -n "Server 4: "; echo -n $(systemctl show -p SubState --value tomcat-4)
+echo -n "service tomcat-4 status : "; echo -n $(systemctl show -p SubState --value tomcat-4)
 fi
 
 echo ""
