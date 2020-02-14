@@ -206,10 +206,10 @@ sed -i s/8080/$Server4_HTTP_Port/ server.xml
 sed -i s/8443/$Server4_HTTPS_Port/ server.xml
 sed -i s/8005/$Server4_Shutdown_Port/ server.xml
 sed -i s/8009/$Server4_AJP_Port/ server.xml
-echo "Server 4: Change HTTP Connector Port...*:8080 to *:"; echo $Server4_HTTP_Port
-echo "Server 4: Change HTTPS Connector Port..*:8443 to *:"; echo $Server4_HTTPS_Port
-echo "Server 4: Change Shutdown Port.........*:8005 to *:"; echo $Server4_Shutdown_Port
-echo "Server 4: Change AJP Connector Port....*:8009 to *:"; echo $Server4_AJP_Port
+echo -n "Server 4: Change HTTP Connector Port...*:8080 to *:"; echo $Server4_HTTP_Port
+echo -n "Server 4: Change HTTPS Connector Port..*:8443 to *:"; echo $Server4_HTTPS_Port
+echo -n "Server 4: Change Shutdown Port.........*:8005 to *:"; echo $Server4_Shutdown_Port
+echo -n "Server 4: Change AJP Connector Port....*:8009 to *:"; echo $Server4_AJP_Port
 cd ..
 cd ..
 fi
