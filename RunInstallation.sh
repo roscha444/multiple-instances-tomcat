@@ -1,13 +1,38 @@
 #!/bin/bash
 
+########################################################################################################################################
 
-#Here you can set your java path!!!
-
+#Here you can set your java path. If you have set the system variable JAVA_HOME you do not have to change anything.
 JavaPath=$JAVA_HOME
+
 #EXAMPLE: JavaPath=/usr/lib64/jvm/jre-1.8.0-openjdk
 
 #Here you can set the name of the tmp directory
 tmp=tmpTomcatApache
+
+#Here you can set the Ports of all Server
+
+#Please remember that you have to open the ports in the firewall!
+
+Server1_HTTP_Port=8080
+Server1_HTTPS_Port=8443
+Server1_Shutdown_Port=8005
+Server1_AJP_Port=8009
+
+Server2_HTTP_Port=8081
+Server2_HTTPS_Port=8444
+Server2_Shutdown_Port=8006
+Server2_AJP_Port=8010
+
+Server3_HTTP_Port=8082
+Server3_HTTPS_Port=8445
+Server3_Shutdown_Port=8007
+Server3_AJP_Port=8011
+
+Server4_HTTP_Port=8083
+Server4_HTTPS_Port=8446
+Server4_Shutdown_Port=8008
+Server4_AJP_Port=8012
 
 #Here you can set the name of the servers directorys
 ServerDirectory1=apache-tomcat-1
@@ -15,6 +40,7 @@ ServerDirectory2=apache-tomcat-2
 ServerDirectory3=apache-tomcat-3
 ServerDirectory4=apache-tomcat-4
 
+#########################################################################################################################################
 
 ################################
 AUTHOR="Robin Schumacher"
@@ -124,23 +150,34 @@ echo "##########################################################"
 
 echo ""
 
-echo "Server 1: HTTP Port...........*:8080"
-echo "Server 1: HTTPS Port..........*:8443"
-echo "Server 1: Shutdown Port.......*:8005"
-echo "Server 1: AJP Connector Port..*:8009"
+cd $ServerDirectory1
+cd conf
+sed -i s/8080/$Server1_HTTP_Port/ server.xml 
+sed -i s/8443/$Server1_HTTPS_Port/ server.xml 
+sed -i s/8005/$Server1_Shutdown_Port/ server.xml
+sed -i s/8009/$Server1_AJP_Port/ server.xml
+echo ""
+echo -n "Server 1: Change HTTP Connector Port...*:8080 to *:"; echo $Server1_HTTP_Port
+echo -n "Server 1: Change HTTPS Connector Port..*:8443 to *:"; echo $Server1_HTTPS_Port
+echo -n "Server 1: Change Shutdown Port.........*:8005 to *:"; echo $Server1_Shutdown_Port
+echo -n "Server 1: Change AJP Connector Port....*:8009 to *:"; echo $Server1_AJP_Port
+echo ""
+cd ..
+cd ..
+
 
 if (($AMOUNT > 1)); then
 cd $ServerDirectory2
 cd conf
-sed -i s/8080/8081/ server.xml 
-sed -i s/8443/8444/ server.xml 
-sed -i s/8005/8006/ server.xml
-sed -i s/8009/8010/ server.xml
+sed -i s/8080/$Server2_HTTP_Port/ server.xml 
+sed -i s/8443/$Server2_HTTPS_Port/ server.xml 
+sed -i s/8005/$Server2_Shutdown_Port/ server.xml
+sed -i s/8009/$Server2_AJP_Port/ server.xml
 echo ""
-echo "Server 2: Change HTTP Connector Port...*:8080 to *:8081"
-echo "Server 2: Change HTTPS Connector Port..*:8443 to *:8444"
-echo "Server 2: Change Shutdown Port.........*:8005 to *:8006"
-echo "Server 2: Change AJP Connector Port....*:8009 to *:8010"
+echo -n "Server 2: Change HTTP Connector Port...*:8080 to *:"; echo $Server2_HTTP_Port
+echo -n "Server 2: Change HTTPS Connector Port..*:8443 to *:"; echo $Server2_HTTPS_Port
+echo -n "Server 2: Change Shutdown Port.........*:8005 to *:"; echo $Server2_Shutdown_Port
+echo -n "Server 2: Change AJP Connector Port....*:8009 to *:"; echo $Server2_AJP_Port
 echo ""
 cd ..
 cd ..
@@ -149,14 +186,14 @@ fi
 if (($AMOUNT > 2)); then
 cd $ServerDirectory3
 cd conf
-sed -i s/8080/8082/ server.xml 
-sed -i s/8443/8445/ server.xml 
-sed -i s/8005/8007/ server.xml
-sed -i s/8009/8011/ server.xml
-echo "Server 3: Change HTTP Connector Port...*:8080 to *:8082"
-echo "Server 3: Change HTTPS Connector Port..*:8443 to *:8445"
-echo "Server 3: Change Shutdown Port.........*:8005 to *:8007"
-echo "Server 3: Change AJP Connector Port....*:8009 to *:8011"
+sed -i s/8080/$Server3_HTTP_Port/ server.xml 
+sed -i s/8443/$Server3_HTTPS_Port/ server.xml 
+sed -i s/8005/$Server3_Shutdown_Port/ server.xml
+sed -i s/8009/$Server3_AJP_Port/ server.xml
+echo -n "Server 3: Change HTTP Connector Port...*:8080 to *:"; echo $Server3_HTTP_Port
+echo -n "Server 3: Change HTTPS Connector Port..*:8443 to *:"; echo $Server3_HTTPS_Port
+echo -n "Server 3: Change Shutdown Port.........*:8005 to *:"; echo $Server3_Shutdown_Port
+echo -n "Server 3: Change AJP Connector Port....*:8009 to *:"; echo $Server3_AJP_Port
 echo ""
 cd ..
 cd ..
@@ -165,14 +202,14 @@ fi
 if (($AMOUNT > 3)); then
 cd $ServerDirectory4
 cd conf
-sed -i s/8080/8083/ server.xml 
-sed -i s/8443/8446/ server.xml
-sed -i s/8005/8008/ server.xml
-sed -i s/8009/8012/ server.xml
-echo "Server 4: Change HTTP Connector Port...*:8080 to *:8083"
-echo "Server 4: Change HTTPS Connector Port..*:8443 to *:8446"
-echo "Server 4: Change Shutdown Port.........*:8005 to *:8008"
-echo "Server 4: Change AJP Connector Port....*:8009 to *:8012"
+sed -i s/8080/$Server4_HTTP_Port/ server.xml 
+sed -i s/8443/$Server4_HTTPS_Port/ server.xml
+sed -i s/8005/$Server4_Shutdown_Port/ server.xml
+sed -i s/8009/$Server4_AJP_Port/ server.xml
+echo "Server 4: Change HTTP Connector Port...*:8080 to *:"; echo $Server4_HTTP_Port
+echo "Server 4: Change HTTPS Connector Port..*:8443 to *:"; echo $Server4_HTTPS_Port
+echo "Server 4: Change Shutdown Port.........*:8005 to *:"; echo $Server4_Shutdown_Port
+echo "Server 4: Change AJP Connector Port....*:8009 to *:"; echo $Server4_AJP_Port
 cd ..
 cd ..
 fi
@@ -204,7 +241,9 @@ echo ""
 $ServerDirectory4/bin/startup.sh
 fi
 echo ""
-
+echo "Please remember that you have to open the ports in the firewall!"
+echo ""
+echo "##########################################################"
 else
 
 d=`pwd`
@@ -377,6 +416,8 @@ echo -n "service tomcat-4 status : "; echo -n $(systemctl show -p SubState --val
 fi
 
 echo ""
+echo ""
+echo "Please remember that you have to open the ports in the firewall!"
 echo ""
 echo "##########################################################"
 fi
